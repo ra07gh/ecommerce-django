@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>🛒 سلة التسوق</h2>
+
+  {% if cart_items %}
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>الصورة</th>
+          <th>المنتج</th>
+          <th>الكمية</th>
+          <th>السعر</th>
+          <th>الإجمالي</th>
+          <th>تعديل</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td>
+            {% if item.product.image %}
+              <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="60" height="60" style="object-fit: cover;">
+            {% else %}
+              <span class="text-muted">لا يوجد صورة</span>
+            {% endif %}
+          </td>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.product.price }} ريال</td>
+          <td>{{ item.total }} ريال</td>
+          <td>
+            <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-sm btn-outline-secondary">➖</a>
+            <a href="{% url 'increase_quantity' item.product.id %}" class="btn btn-sm btn-outline-success">➕</a>
+            <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-sm btn-outline-danger">❌</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h5 class="text-end mt-3">الإجمالي الكلي: <span class="text-success">{{ total_price }} ريال</span></h5>
+    <a href="{% url 'checkout' %}" class="btn btn-success mt-3">إتمام الطلب</a>
+  {% else %}
+    <p>سلتك فاضية حالياً 🧺</p>
+  {% endif %}
+</div>
+{% endblock %}

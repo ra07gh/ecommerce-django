@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}تعديل المنتج{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="mb-4 text-center text-primary">تعديل المنتج 💄</h2>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+                    <a href="{% url 'beauty_products' %}" class="btn btn-secondary">رجوع</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">إتمام الطلب 🧾</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>المنتج</th>
+                    <th>الكمية</th>
+                    <th>السعر</th>
+                    <th>الإجمالي</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price }} ريال</td>
+                    <td>{{ item.total }} ريال</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mb-3">
+            <label class="form-label">اختر طريقة الدفع:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="payment_method" value="cash" checked>
+                <label class="form-check-label">الدفع عند الاستلام</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="payment_method" value="card">
+                <label class="form-check-label">بطاقة ائتمانية</label>
+            </div>
+        </div>
+
+        <h4>المجموع النهائي: <span class="text-success">{{ total_price }} ريال</span></h4>
+        <button type="submit" class="btn btn-success mt-3">تأكيد الطلب</button>
+    </form>
+</div>
+{% endblock %}

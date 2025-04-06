@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h2 class="text-success">تم تأكيد طلبك بنجاح ✅</h2>
+  <p class="mt-3">رقم الطلب: {{ order.id }}</p>
+  <p>الإجمالي: {{ order.total_price }} ريال</p>
+  <a href="/" class="btn btn-outline-primary mt-3">العودة للرئيسية</a>
+</div>
+{% endblock %}

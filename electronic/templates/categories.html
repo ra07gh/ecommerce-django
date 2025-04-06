@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/categories/" method="post">
+    {% csrf_token %}
+    <div class="row mt-5">
+        <div class="col">
+            <input type="text" class="form-control " name="title">
+            <input type="text" class="form-control " name="address">
+            <button class="btn btn-info mt-5">ارسال</button>
+        </div>
+    </div>
+   
+</form>
+
+{{title}} -- {{address}}
+{% endblock %}

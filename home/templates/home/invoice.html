@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5" id="invoice-area">
+    <h2 class="text-center mb-4">🧾 فاتورة الطلب رقم: {{ order.id }}</h2>
+
+    <p><strong>العميل:</strong> {{ order.user.username }}</p>
+    <p><strong>التاريخ:</strong> {{ order.created_at }}</p>
+
+    <table class="table table-bordered text-center mt-4">
+        <thead class="table-light">
+            <tr>
+                <th>المنتج</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+                <th>الإجمالي</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }} ريال</td>
+                <td>{{ item.price|floatformat:2|add:"0" }} × {{ item.quantity }} = {{ item.price|floatformat:2|add:"0"|floatformat }} ريال</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4 class="text-end mt-3">
+        الإجمالي الكلي: <span class="text-success">{{ order.total_price }} ريال</span>
+    </h4>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary" onclick="printInvoice()">🖨️ طباعة الفاتورة</button>
+        <a href="/" class="btn btn-outline-secondary">العودة للرئيسية</a>
+    </div>
+</div>
+
+<script>
+    function printInvoice() {
+        setTimeout(() => {
+            window.print();
+        }, 300);
+    }
+</script>
+{% endblock %}

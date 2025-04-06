@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h2 class="my-4">منتجات التجميل 💅</h2>
+  <div class="row">
+    {% if request.user.is_superuser %}
+  <div class="text-end mb-3">
+    <a href="{% url 'beauty_add' %}" class="btn btn-success">➕ إضافة منتج جديد</a>
+  </div>
+{% endif %}
+    {% for item in prod %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        {% if item.image %}
+  <img src="{{ item.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+{% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title">{{ item.name }}</h5>
+          <p class="card-text">{{ item.notes }}</p>
+          <p class="text-success fw-bold">{{ item.price }} ريال</p>
+          {% if request.user.is_superuser %}
+          <a href="{% url 'beauty_edit' item.id %}" class="btn btn-warning btn-sm">تعديل</a>
+          <a href="{% url 'beauty_delete' item.id %}" class="btn btn-danger btn-sm">حذف</a>
+        {% endif %}        
+        <a href="{% url 'add_to_cart' item.id %}" class="btn btn-primary">أضف للسلة</a>
+    </div>
+      </div>
+    </div>
+    {% empty %}
+      <p>لا يوجد منتجات حاليًا.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

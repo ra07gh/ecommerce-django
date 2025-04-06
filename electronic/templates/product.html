@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for item in  prod %}
+ <p>{{item.id}}</p>
+ <p>{{item.name}}</p>
+ <p>{{item.price}}</p>
+ <p>{{item.color}}</p>
+{% endfor %}
+{% endblock %}
